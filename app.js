@@ -13,6 +13,11 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/chat", chatRouter);
 
+// @route /
+app.get("/", (req, res, next) => {
+  res.json({ message: "Strangers Node Backend API" });
+});
+
 // mongodb connection
 mongoose
   .connect(process.env.MONGODB_URI)
