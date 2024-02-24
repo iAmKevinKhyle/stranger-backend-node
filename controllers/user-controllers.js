@@ -1,9 +1,8 @@
-import User from "../Models/User.js";
+import User from "../models/User.js";
 import Chat from "../models/Chat.js";
 
 let cancel;
-let time_interval;
-let count = 10;
+let time_out;
 
 // add user
 export const add_user = async (req, res, next) => {
@@ -99,29 +98,13 @@ export const time_out_delete = async (req, res, next) => {
   cancel = JSON.parse(bool);
 
   if (!cancel) {
-    time_interval = setInterval(() => {
-      console.log(count);
-      count--;
-
-      if (count === 0) {
-        console.log("Countdown Ended... \nDeleting...");
-        clearInterval(time_interval);
-        remove_user(id);
-        console.log("Deleted");
-      }
-
-      // sometimes countdown doesn't stop
-      // so i put for added insurance
-      if (count < 0) {
-        clearInterval(time_interval);
-      }
-    }, 1000);
+    time_out = setTimeout(() => {
+      remove_user(id);
+      console.log("Deleted");
+    }, 10000);
   } else {
-    if (time_interval) {
-      clearInterval(time_interval);
-    }
-    count = 10;
-    console.log("cancelled");
+    clearTimeout(time_out);
+    console.log("Cancelled");
   }
 };
 
