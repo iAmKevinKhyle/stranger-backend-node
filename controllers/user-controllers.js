@@ -1,4 +1,4 @@
-import User from "../Models/User.js";
+import User from "../models/User.js";
 import Chat from "../models/Chat.js";
 
 let cancel;
